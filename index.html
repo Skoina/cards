@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#18121e"><meta name="description" content="讓卡卡占卜師陪你抽三張塔羅牌，理解此刻、看見提醒，找到可以開始的一小步。">
+<title>卡卡塔羅屋 · Luca Oracle</title>
+<link rel="icon" href="assets/back.webp"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+<header class="topbar">
+  <button class="brand" data-nav="reading" aria-label="卡卡塔羅屋，回到占卜"><img src="assets/reader.webp" alt="" class="brand-dog"><span>卡卡塔羅屋<small>Luca Oracle</small></span></button>
+  <div class="header-actions"><button class="quiet-button music-button" id="musicButton" aria-label="播放背景音樂" aria-pressed="false">播放音樂</button><button class="quiet-button" id="helpButton">初次來訪</button></div>
+</header>
+<main id="main">
+<section id="homeView" class="view">
+  <div class="hero">
+    <img class="hero-art" src="assets/reader.webp" alt="你的小狗穿著星月披風，坐在水晶球和塔羅牌前，溫柔地陪你占卜" fetchpriority="high">
+    <div class="hero-shade"></div>
+    <div class="hero-intro"><span class="eyebrow">A LITTLE MAGIC, A LITTLE COURAGE</span><h1>把心事，<br>交給星星。</h1><p>讓卡卡陪你，看見下一步。</p></div>
+    <div class="reader-badge"><span>你的專屬占卜師</span><strong>卡卡先生</strong></div>
+    <div class="hero-quote">「不急著找到答案，<br>我們先聽聽你的心。」</div>
+  </div>
+  <div class="home-content">
+    <div class="section-heading"><span class="eyebrow">2026 · QUESTIONS WE CARRY</span><h2>今天，想聊些什麼？</h2><p>點選一個主題，再選最貼近你的提問。</p></div>
+    <form id="readingForm">
+      <fieldset class="topic-options" id="topicOptions"><legend class="sr-only">占卜主題</legend></fieldset>
+      <fieldset class="prompt-options" id="promptOptions"><legend>想問卡卡哪件事？</legend></fieldset>
+      <label class="reversal-setting"><span><b>讓逆位也參與解讀</b><small>看見阻礙，也看見另一種可能</small></span><input id="reversals" type="checkbox" checked><span class="toggle" aria-hidden="true"></span></label>
+      <button class="primary-button" id="startButton" type="submit"><span>靜下心，開始抽牌</span><span class="button-meta">三張牌・一段心的對話</span></button>
+    </form>
+    <p class="deck-note">22 張大阿爾克那 · 此刻狀態 / 需要看見 / 下一步</p>
+    <div class="welcome-note"><img src="assets/cards/17.webp" alt="" loading="lazy"><div><span class="eyebrow">A GENTLE REMINDER</span><p>牌是一面鏡子。<br>你，才是故事的主角。</p><button class="text-button" id="learnButton">了解這副牌</button></div></div>
+  </div>
+</section>
+<section id="drawView" class="view" hidden>
+  <div class="page-content">
+    <button class="text-button" id="backHome">返回提問</button>
+    <div class="page-heading"><span class="eyebrow">FOLLOW YOUR INTUITION</span><h1 id="drawTitle" tabindex="-1">有些答案，正在靠近。</h1><p id="drawSubtitle">慢慢呼吸，選擇三張讓你停留的牌。</p></div>
+    <div class="dog-message"><img src="assets/reader.webp" alt="卡卡先生"><p id="drawMessage">汪！不用挑「最好的」牌。<br>選讓你有感覺的，就好。</p></div>
+    <ol class="spread-slots" id="spreadSlots"></ol>
+    <div class="draw-toolbar"><span id="selectionCount" role="status">已選 0 / 3 張</span><button class="text-button" id="shuffleButton">重新洗牌</button></div>
+    <div id="deckArea" class="deck-area" aria-label="22 張待選的塔羅牌"></div>
+    <p id="deckHint" class="deck-note">左右滑動牌列，尋找你的三張牌。</p>
+    <button id="revealButton" class="primary-button" disabled>選好三張，聽卡卡解牌</button>
+    <button id="interpretButton" class="primary-button" hidden disabled>閱讀我的解牌</button>
+    <p class="soft-note">牌位依抽取順序排列；每張牌只會出現一次。</p>
+  </div>
+</section>
+<section id="resultView" class="view" hidden><div class="page-content" id="resultContent"></div></section>
+<section id="libraryView" class="view" hidden>
+  <div class="page-content">
+    <div class="page-heading"><span class="eyebrow">THE LITTLE BOOK OF TAROT</span><h1 tabindex="-1">每張牌，都有一個故事。</h1><p>認識卡卡的 22 張大阿爾克那。</p></div>
+    <div id="cardFilters" class="card-filters" role="group" aria-label="選擇牌圖鑑分類"></div>
+    <p class="library-count" id="libraryCount"></p><div id="libraryGrid" class="library-grid"></div>
+    <div id="libraryRules"></div><details class="about-deck"><summary>2026 常見提問怎麼選？</summary><div><p>九個主題依常見的感情、工作、自我、健康、未來、金錢、人際、家庭與抉擇提問整理。不是全球熱門程度排名；選最貼近你此刻的事，就好。</p><p>選題參考：<a href="https://aimag.me/blog/tarot-drawing-statistics" target="_blank" rel="noopener">2026 平台樣本與限制</a> · <a href="https://tarostarot.com/blog/best-questions-to-ask-tarot" target="_blank" rel="noopener">2026 提問文章</a></p></div></details>
+  </div>
+</section>
+<section id="journalView" class="view" hidden><div class="page-content">
+  <div class="page-heading"><span class="eyebrow">LET THE MOMENTS STAY</span><h1 tabindex="-1">收藏一點，心的光。</h1><p>回看當時的牌，也看看現在的自己。</p></div>
+  <p id="storageNote" class="soft-note">紀錄只保存在目前的瀏覽器，最多 50 筆。</p><div id="journalList"></div>
+</div></section>
+</main>
+<footer class="site-footer">Luca Oracle <span>用一點星光，陪你往前。</span><small>僅供娛樂與自我探索</small></footer>
+<nav class="bottom-nav" aria-label="主要導覽"><button data-nav="reading" class="active" aria-current="page"><span>占卜</span><small>ORACLE</small></button><button data-nav="library"><span>牌圖鑑</span><small>THE CARDS</small></button><button data-nav="journal"><span>我的紀錄</span><small>MY JOURNAL</small></button></nav>
+</div>
+<dialog id="cardDialog" aria-labelledby="dialogTitle"><button id="closeDialog" class="dialog-close" aria-label="關閉牌面詳情">關閉</button><div id="dialogBody"></div></dialog>
+<dialog id="helpDialog" aria-labelledby="helpTitle"><button id="closeHelp" class="dialog-close">關閉</button><div class="help-body"><img src="assets/reader.webp" alt="卡卡先生" class="help-dog"><span class="eyebrow">WELCOME TO Luca Oracle</span><h2 id="helpTitle">你好，我是卡卡。</h2><p>把這裡當作一個安靜的角落。<br>我會陪你從牌裡，找回自己的聲音。</p><ol><li><b>點選你在意的主題與提問</b><span>九個主題，各有三個提問。不需要輸入文字，選最貼近你的那一句。</span></li><li><b>選三張有感覺的牌</b><span>依序代表此刻狀態、需要看見、下一步。</span></li><li><b>讀牌意，帶走一個小行動</b><span>正、逆位都可能有提醒。看看哪一段貼近你。</span></li></ol><p class="soft-note">使用 22 張大阿爾克那。內容供娛樂與自我探索，你始終保有選擇。</p><button id="helpStart" class="primary-button">我準備好了</button></div></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<audio id="backgroundMusic" loop preload="none" playsinline hidden><source src="assets/audio/the-oracles-breath.mp3" type="audio/mpeg"></audio>
+<script src="cards.js"></script><script src="topics.js"></script><script src="app.js"></script><script src="music.js"></script>
+</body></html>
